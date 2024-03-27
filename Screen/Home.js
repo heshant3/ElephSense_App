@@ -78,7 +78,7 @@ const Home = () => {
         }}
       >
         <View style={styles.Content1}>
-          <Ionicons name="thermometer-outline" size={24} color="#fff" />
+          <Ionicons name="thermometer-outline" size={30} color="#fff" />
           <Text style={styles.TextName}>Body</Text>
           <Text style={styles.TextName}>Temperature</Text>
           {loading ? (
@@ -89,13 +89,16 @@ const Home = () => {
             />
           ) : (
             <>
-              <Text style={styles.TextValue}>{Temperature}°C</Text>
+              <Text style={styles.TextValue}>
+                {Temperature}
+                <Text style={styles.UnitText1}>°C</Text>
+              </Text>
             </>
           )}
         </View>
 
         <View style={styles.Content1}>
-          <Ionicons name="pulse-outline" size={24} color="#fff" />
+          <Ionicons name="pulse-outline" size={30} color="#fff" />
           <Text style={styles.TextName}>Heart Pulse</Text>
           {loading ? (
             <ActivityIndicator
@@ -107,14 +110,14 @@ const Home = () => {
             <>
               <Text style={styles.TextValue}>
                 {HeartPulse}
-                <Text style={styles.UnitText}> bpm</Text>
+                <Text style={styles.UnitText2}> bpm</Text>
               </Text>
             </>
           )}
         </View>
 
         <View style={styles.Content1}>
-          <MaterialCommunityIcons name="waveform" size={24} color="#fff" />
+          <MaterialCommunityIcons name="waveform" size={30} color="#fff" />
           <Text style={styles.TextName}>Sound Wave</Text>
           {loading ? (
             <ActivityIndicator
@@ -125,7 +128,7 @@ const Home = () => {
           ) : (
             <>
               <Text style={styles.TextValue}>
-                {SoundWave} <Text style={styles.UnitText2}>dB</Text>
+                {SoundWave} <Text style={styles.UnitText3}>dB</Text>
               </Text>
             </>
           )}
@@ -176,15 +179,21 @@ const styles = ScaledSheet.create({
     fontSize: "49@mvs",
   },
 
-  UnitText: {
+  UnitText1: {
     color: "white",
-    fontFamily: "Inter_600SemiBold",
-    fontSize: "25@mvs",
+    fontFamily: "Inter_400Regular",
+    fontSize: "49@mvs",
   },
 
   UnitText2: {
     color: "white",
-    fontFamily: "Inter_600SemiBold",
+    fontFamily: "Inter_400Regular",
+    fontSize: "25@mvs",
+  },
+
+  UnitText3: {
+    color: "white",
+    fontFamily: "Inter_400Regular",
     fontSize: "35@mvs",
   },
 });

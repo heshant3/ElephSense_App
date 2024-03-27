@@ -30,12 +30,45 @@ const Analyses = () => {
         style={{ flex: 1, justifyContent: "center", alignContent: "center" }}
       >
         <BlurView
-          experimentalBlurMethod="dimezisBlurView"
-          intensity={20}
-          tint="systemChromeMaterial"
+          experimentalBlurMethod="none"
+          intensity={90}
+          tint="dark"
           style={styles.Box}
         >
           <Text style={styles.ChartName}>Body Temperature</Text>
+
+          <Image
+            source={require("../assets/Chart_1.png")}
+            style={styles.image2}
+          />
+        </BlurView>
+
+        <BlurView
+          experimentalBlurMethod="none"
+          intensity={90}
+          tint="dark"
+          style={styles.Box}
+        >
+          <Text style={styles.ChartName}>Heart Pulse</Text>
+
+          <Image
+            source={require("../assets/Chart_2.png")}
+            style={styles.image2}
+          />
+        </BlurView>
+
+        <BlurView
+          experimentalBlurMethod="none"
+          intensity={90s}
+          tint="dark"
+          style={styles.Box}
+        >
+          <Text style={styles.ChartName}>Sound Wave</Text>
+
+          <Image
+            source={require("../assets/Chart_3.png")}
+            style={styles.image2}
+          />
         </BlurView>
       </View>
     </SafeAreaView>
@@ -73,12 +106,22 @@ const styles = ScaledSheet.create({
     borderRadius: 20,
     borderColor: "#ffff",
     borderWidth: 1,
+    justifyContent: "center",
+    marginVertical: 20,
   },
 
   ChartName: {
     color: "white",
-    fontFamily: "Inter_400Regular",
+    fontFamily: "Inter_500Medium",
     fontSize: "20@mvs",
-    padding: 10,
+    paddingLeft: 15,
+    paddingTop: 10,
+  },
+
+  image2: {
+    alignSelf: "center",
+    width: "80%",
+    height: "80%",
+    resizeMode: "contain",
   },
 });
