@@ -59,7 +59,7 @@ const Analyses = () => {
 
         <BlurView
           experimentalBlurMethod="none"
-          intensity={90s}
+          intensity={90}
           tint="dark"
           style={styles.Box}
         >
@@ -120,8 +120,8 @@ const styles = ScaledSheet.create({
 
   image2: {
     alignSelf: "center",
-    width: "80%",
-    height: "80%",
+    width: "60%",
+    height: "60%",
     resizeMode: "contain",
   },
 });
