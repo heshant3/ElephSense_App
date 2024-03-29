@@ -6,24 +6,28 @@ import {
   StatusBar,
   Image,
   ActivityIndicator,
+  Modal,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { ScaledSheet } from "react-native-size-matters";
 import { ref, onValue } from "firebase/database";
 import { db } from "../config";
-import { MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
+import { MaterialCommunityIcons, Ionicons, Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
 const Home = () => {
+  const [modalVisible, setModalVisible] = useState(false);
   const [Temperature, setTemperature] = useState(null);
   const [HeartPulse, setHeartPulse] = useState(null);
   const [SoundWave, setSoundWave] = useState(null);
+  const [Alert, setAlert] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const TemperatureRef = ref(db, "Temperature");
     const HeartPulseRef = ref(db, "HeartPulse");
     const SoundWaveRef = ref(db, "SoundWave");
+    const AlertRef = ref(db, "Alert");
 
     onValue(TemperatureRef, (snapshot) => {
       const data = snapshot.val();
@@ -39,6 +43,15 @@ const Home = () => {
     onValue(SoundWaveRef, (snapshot) => {
       const data = snapshot.val();
       setSoundWave(data);
+    });
+
+    onValue(AlertRef, (snapshot) => {
+      const data = snapshot.val();
+      setAlert(data);
+
+      if (data === 1 && !modalVisible) {
+        setModalVisible(true);
+      }
     });
   }, []);
 
@@ -134,6 +147,26 @@ const Home = () => {
           )}
         </View>
       </View>
+
+      {/*  Alert Modal */}
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <View
+          style={styles.centeredView}
+          onTouchEnd={() => setModalVisible(!modalVisible)}
+        >
+          <View style={styles.modalView}>
+            <Feather name="alert-triangle" size={24} color="#ff5866" />
+            <Text style={styles.Text}>"High frequency detected"</Text>
+          </View>
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 };
@@ -195,5 +228,28 @@ const styles = ScaledSheet.create({
     color: "white",
     fontFamily: "Inter_400Regular",
     fontSize: "35@mvs",
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.6)",
+  },
+  modalView: {
+    // flexDirection: "row",
+    height: "12%",
+    width: "80%",
+    overflow: "hidden",
+    borderRadius: 20,
+    backgroundColor: "rgba(255, 255, 255, 0.9)",
+    borderWidth: 1.5,
+    borderColor: "white",
+    alignItems: "center",
+    justifyContent: "space-evenly",
+  },
+  Text: {
+    fontSize: "20@mvs",
+    fontFamily: "Inter_600SemiBold",
+    color: "#595959",
   },
 });
